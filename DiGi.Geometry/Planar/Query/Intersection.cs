@@ -11,7 +11,7 @@ namespace DiGi.Geometry.Planar
     {
         /// <summary>
         /// Calculates the intersection of two polygonal faces in 2D space.
-        /// <para>When the overlay throws a <c>TopologyException</c> - valid inputs can still fail it, e.g. a face with zero-area sliver holes left by a union ("found non-noded intersection") - the intersection is retried with <c>OverlayNGRobust</c>, which falls back from floating point through snapping to snap-rounding; <c>null</c> is returned only when that retry fails as well (ZiolkowskiJakub/DiGi.Geometry#9).</para>
+        /// <para>When the overlay throws a <c>TopologyException</c> - valid inputs can still fail it, e.g. a face with zero-area sliver holes left by a union ("found non-noded intersection") - the intersection is retried with <c>OverlayNGRobust</c>, which falls back from floating point through snapping to snap-rounding; <c>null</c> is returned only when that retry fails as well (DiGi-Organization/DiGi.Geometry#9).</para>
         /// </summary>
         /// <param name="polygonalFace2D_1">The first polygonal face to intersect.</param>
         /// <param name="polygonalFace2D_2">The second polygonal face to intersect.</param>

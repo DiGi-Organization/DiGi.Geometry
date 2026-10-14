@@ -22,7 +22,7 @@ namespace DiGi.Geometry.Planar
 
             // A polygon or polyline answers from its own points. Going through GetSegments() here built
             // one Segment2D per edge for every query point, which on a 4 000-point outline tested against
-            // 150 000 points was the whole cost of the call (ZiolkowskiJakub/DiGi.Geometry#5).
+            // 150 000 points was the whole cost of the call (DiGi-Organization/DiGi.Geometry#5).
             if (segmentable2D is Segmentable2D segmentable2D_Points)
             {
                 return point2D != null && segmentable2D_Points.On(point2D.X, point2D.Y, tolerance);

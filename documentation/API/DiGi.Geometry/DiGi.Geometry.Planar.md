@@ -6013,7 +6013,7 @@ A list containing the resulting intersection polygons, or null if no intersectio
 
 Calculates the intersection of two polygonal faces in 2D space\.
 
-When the overlay throws a `TopologyException` - valid inputs can still fail it, e.g. a face with zero-area sliver holes left by a union ("found non-noded intersection") - the intersection is retried with `OverlayNGRobust`, which falls back from floating point through snapping to snap-rounding; `null` is returned only when that retry fails as well (ZiolkowskiJakub/DiGi.Geometry#9).
+When the overlay throws a `TopologyException` - valid inputs can still fail it, e.g. a face with zero-area sliver holes left by a union ("found non-noded intersection") - the intersection is retried with `OverlayNGRobust`, which falls back from floating point through snapping to snap-rounding; `null` is returned only when that retry fails as well (DiGi-Organization/DiGi.Geometry#9).
 
 ```csharp
 public static System.Collections.Generic.List<DiGi.Geometry.Planar.Classes.PolygonalFace2D>? Intersection(this DiGi.Geometry.Planar.Classes.PolygonalFace2D? polygonalFace2D_1, DiGi.Geometry.Planar.Classes.PolygonalFace2D? polygonalFace2D_2);
