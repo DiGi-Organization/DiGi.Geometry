@@ -6037,6 +6037,8 @@ The source polyline to clone\.
 
 Initializes a new instance of the [Polyline2D](DiGi.Geometry.Planar.Classes.md#DiGi.Geometry.Planar.Classes.Polyline2D 'DiGi\.Geometry\.Planar\.Classes\.Polyline2D') class defined by a collection of points\.
 
+The points are stored as given, with no cleanup. Points which may repeat their predecessor, such as points read from a file, go through [Polyline2D\(this IEnumerable&lt;Point2D&gt;, double\)](DiGi.Geometry.Planar.md#DiGi.Geometry.Planar.Create.Polyline2D(thisSystem.Collections.Generic.IEnumerable_DiGi.Geometry.Planar.Classes.Point2D_,double) 'DiGi\.Geometry\.Planar\.Create\.Polyline2D\(this System\.Collections\.Generic\.IEnumerable\<DiGi\.Geometry\.Planar\.Classes\.Point2D\>, double\)') instead, which removes the repeats and rejects a polyline of fewer than two distinct points.
+
 ```csharp
 public Polyline2D(System.Collections.Generic.IEnumerable<DiGi.Geometry.Planar.Classes.Point2D>? point2Ds);
 ```

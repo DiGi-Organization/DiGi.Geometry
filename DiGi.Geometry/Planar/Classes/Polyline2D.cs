@@ -36,6 +36,7 @@ namespace DiGi.Geometry.Planar.Classes
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Polyline2D"/> class defined by a collection of points.
+        /// <para>The points are stored as given, with no cleanup. Points which may repeat their predecessor, such as points read from a file, go through <see cref="Create.Polyline2D(IEnumerable{Point2D?}?, double)"/> instead, which removes the repeats and rejects a polyline of fewer than two distinct points.</para>
         /// </summary>
         /// <param name="point2Ds">The vertices of the polyline.</param>
         public Polyline2D(IEnumerable<Point2D>? point2Ds)

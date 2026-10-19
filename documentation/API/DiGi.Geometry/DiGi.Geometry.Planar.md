@@ -1071,7 +1071,7 @@ A [DifferenceResult2D](DiGi.Geometry.Planar.Classes.md#DiGi.Geometry.Planar.Clas
 
 Invalid (self-intersecting) inputs are repaired before the overlay is computed.
 
-If the first face is degenerate (zero area, collapsing under repair), the difference is lower-dimensional: the parts of the face boundary linework lying outside the second face are returned as [Segment2D\(this Line2D, IPolygonal2D, double\)](DiGi.Geometry.Planar.md#DiGi.Geometry.Planar.Create.Segment2D(thisDiGi.Geometry.Planar.Classes.Line2D,DiGi.Geometry.Planar.Interfaces.IPolygonal2D,double) 'DiGi\.Geometry\.Planar\.Create\.Segment2D\(this DiGi\.Geometry\.Planar\.Classes\.Line2D, DiGi\.Geometry\.Planar\.Interfaces\.IPolygonal2D, double\)')/[Polyline2D](DiGi.Geometry.Planar.Classes.md#DiGi.Geometry.Planar.Classes.Polyline2D 'DiGi\.Geometry\.Planar\.Classes\.Polyline2D')/[Point2D](DiGi.Geometry.Planar.Classes.md#DiGi.Geometry.Planar.Classes.Point2D 'DiGi\.Geometry\.Planar\.Classes\.Point2D') elements.
+If the first face is degenerate (zero area, collapsing under repair), the difference is lower-dimensional: the parts of the face boundary linework lying outside the second face are returned as [Segment2D\(this Line2D, IPolygonal2D, double\)](DiGi.Geometry.Planar.md#DiGi.Geometry.Planar.Create.Segment2D(thisDiGi.Geometry.Planar.Classes.Line2D,DiGi.Geometry.Planar.Interfaces.IPolygonal2D,double) 'DiGi\.Geometry\.Planar\.Create\.Segment2D\(this DiGi\.Geometry\.Planar\.Classes\.Line2D, DiGi\.Geometry\.Planar\.Interfaces\.IPolygonal2D, double\)')/[Polyline2D\(this IEnumerable&lt;Point2D&gt;, double\)](DiGi.Geometry.Planar.md#DiGi.Geometry.Planar.Create.Polyline2D(thisSystem.Collections.Generic.IEnumerable_DiGi.Geometry.Planar.Classes.Point2D_,double) 'DiGi\.Geometry\.Planar\.Create\.Polyline2D\(this System\.Collections\.Generic\.IEnumerable\<DiGi\.Geometry\.Planar\.Classes\.Point2D\>, double\)')/[Point2D](DiGi.Geometry.Planar.Classes.md#DiGi.Geometry.Planar.Classes.Point2D 'DiGi\.Geometry\.Planar\.Classes\.Point2D') elements.
 
 <a name='DiGi.Geometry.Planar.Create.Geometry2Ds(System.Collections.Generic.IEnumerable_DiGi.Geometry.Planar.Interfaces.IGeometry2D_,double)'></a>
 
@@ -1401,7 +1401,7 @@ An IntersectionResult2D containing the intersection geometry; otherwise, null if
 
 Invalid (self-intersecting) inputs are repaired before the overlay is computed.
 
-Boundary-only intersections are lower-dimensional: shared edges are returned as [Segment2D\(this Line2D, IPolygonal2D, double\)](DiGi.Geometry.Planar.md#DiGi.Geometry.Planar.Create.Segment2D(thisDiGi.Geometry.Planar.Classes.Line2D,DiGi.Geometry.Planar.Interfaces.IPolygonal2D,double) 'DiGi\.Geometry\.Planar\.Create\.Segment2D\(this DiGi\.Geometry\.Planar\.Classes\.Line2D, DiGi\.Geometry\.Planar\.Interfaces\.IPolygonal2D, double\)')/[Polyline2D](DiGi.Geometry.Planar.Classes.md#DiGi.Geometry.Planar.Classes.Polyline2D 'DiGi\.Geometry\.Planar\.Classes\.Polyline2D') elements and touching vertices as [Point2D](DiGi.Geometry.Planar.Classes.md#DiGi.Geometry.Planar.Classes.Point2D 'DiGi\.Geometry\.Planar\.Classes\.Point2D') elements.
+Boundary-only intersections are lower-dimensional: shared edges are returned as [Segment2D\(this Line2D, IPolygonal2D, double\)](DiGi.Geometry.Planar.md#DiGi.Geometry.Planar.Create.Segment2D(thisDiGi.Geometry.Planar.Classes.Line2D,DiGi.Geometry.Planar.Interfaces.IPolygonal2D,double) 'DiGi\.Geometry\.Planar\.Create\.Segment2D\(this DiGi\.Geometry\.Planar\.Classes\.Line2D, DiGi\.Geometry\.Planar\.Interfaces\.IPolygonal2D, double\)')/[Polyline2D\(this IEnumerable&lt;Point2D&gt;, double\)](DiGi.Geometry.Planar.md#DiGi.Geometry.Planar.Create.Polyline2D(thisSystem.Collections.Generic.IEnumerable_DiGi.Geometry.Planar.Classes.Point2D_,double) 'DiGi\.Geometry\.Planar\.Create\.Polyline2D\(this System\.Collections\.Generic\.IEnumerable\<DiGi\.Geometry\.Planar\.Classes\.Point2D\>, double\)') elements and touching vertices as [Point2D](DiGi.Geometry.Planar.Classes.md#DiGi.Geometry.Planar.Classes.Point2D 'DiGi\.Geometry\.Planar\.Classes\.Point2D') elements.
 
 <a name='DiGi.Geometry.Planar.Create.IntersectionResult2D(thisDiGi.Geometry.Planar.Interfaces.ISegmentable2D,DiGi.Geometry.Planar.Classes.Line2D,double)'></a>
 
@@ -2243,6 +2243,39 @@ The precision tolerance used for nodalization\.
 #### Returns
 [System\.Collections\.Generic\.List&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')[NetTopologySuite\.Geometries\.Polygon](https://learn.microsoft.com/en-us/dotnet/api/nettopologysuite.geometries.polygon 'NetTopologySuite\.Geometries\.Polygon')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')  
 A list of NetTopologySuite Polygons; otherwise, null if input is null\.
+
+<a name='DiGi.Geometry.Planar.Create.Polyline2D(thisSystem.Collections.Generic.IEnumerable_DiGi.Geometry.Planar.Classes.Point2D_,double)'></a>
+
+## Create\.Polyline2D\(this IEnumerable\<Point2D\>, double\) Method
+
+Creates an open [Polyline2D](DiGi.Geometry.Planar.Classes.md#DiGi.Geometry.Planar.Classes.Polyline2D 'DiGi\.Geometry\.Planar\.Classes\.Polyline2D') from a collection of [Point2D](DiGi.Geometry.Planar.Classes.md#DiGi.Geometry.Planar.Classes.Point2D 'DiGi\.Geometry\.Planar\.Classes\.Point2D') objects, dropping any point which repeats the one before it\.
+
+Use this rather than the constructor whenever the points come from outside the library - a file, a service, a user - and are not already known to be free of repeats. A point which repeats its predecessor contributes a segment of no length, and such a segment has no direction.
+
+The polyline is open, so its last point is not compared with its first: a polyline which returns to where it started keeps both ends.
+
+The constructor stays a plain assignment and does none of this, so a caller who already holds clean points pays nothing.
+
+```csharp
+public static DiGi.Geometry.Planar.Classes.Polyline2D? Polyline2D(this System.Collections.Generic.IEnumerable<DiGi.Geometry.Planar.Classes.Point2D?>? point2Ds, double tolerance=1E-06);
+```
+#### Parameters
+
+<a name='DiGi.Geometry.Planar.Create.Polyline2D(thisSystem.Collections.Generic.IEnumerable_DiGi.Geometry.Planar.Classes.Point2D_,double).point2Ds'></a>
+
+`point2Ds` [System\.Collections\.Generic\.IEnumerable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[Point2D](DiGi.Geometry.Planar.Classes.md#DiGi.Geometry.Planar.Classes.Point2D 'DiGi\.Geometry\.Planar\.Classes\.Point2D')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')
+
+The [System\.Collections\.Generic\.IEnumerable&lt;&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1') of [Point2D](DiGi.Geometry.Planar.Classes.md#DiGi.Geometry.Planar.Classes.Point2D 'DiGi\.Geometry\.Planar\.Classes\.Point2D') objects used to define the polyline\.
+
+<a name='DiGi.Geometry.Planar.Create.Polyline2D(thisSystem.Collections.Generic.IEnumerable_DiGi.Geometry.Planar.Classes.Point2D_,double).tolerance'></a>
+
+`tolerance` [System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')
+
+The [System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double') distance within which two points are treated as one\.
+
+#### Returns
+[Polyline2D](DiGi.Geometry.Planar.Classes.md#DiGi.Geometry.Planar.Classes.Polyline2D 'DiGi\.Geometry\.Planar\.Classes\.Polyline2D')  
+A [Polyline2D](DiGi.Geometry.Planar.Classes.md#DiGi.Geometry.Planar.Classes.Polyline2D 'DiGi\.Geometry\.Planar\.Classes\.Polyline2D') object if a valid polyline can be created; otherwise, null\.
 
 <a name='DiGi.Geometry.Planar.Create.Polyline2Ds_T_(thisSystem.Collections.Generic.IEnumerable_T_,DiGi.Geometry.Planar.Classes.Point2D,bool,double)'></a>
 
