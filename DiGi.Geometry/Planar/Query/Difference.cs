@@ -173,5 +173,98 @@ namespace DiGi.Geometry.Planar
 
             return result;
         }
+
+        /// <summary>
+        /// Calculates the part of a polygonal face that none of the given polygonal faces covers.
+        /// <para>The cutting faces that come within <paramref name="tolerance"/> of the face's bounding box are united first and subtracted in a single overlay, so the cost is one difference however many faces cut - subtracting them one by one would overlay every intermediate result again. Invalid inputs are repaired first, as in <see cref="Difference(PolygonalFace2D?, PolygonalFace2D?)"/>.</para>
+        /// </summary>
+        /// <param name="polygonalFace2D">The face to subtract from. This value can be null.</param>
+        /// <param name="polygonalFace2Ds">The faces to subtract. Null items are skipped. This value can be null.</param>
+        /// <param name="tolerance">The distance tolerance, used for the bounding box test and the union of the cutting faces.</param>
+        /// <returns>The faces that remain; a copy of <paramref name="polygonalFace2D"/> when no face cuts it; an empty list when it is covered whole; null when either input is null or the overlay fails.</returns>
+        public static List<PolygonalFace2D>? Difference(this PolygonalFace2D? polygonalFace2D, IEnumerable<PolygonalFace2D?>? polygonalFace2Ds, double tolerance = DiGi.Core.Constants.Tolerance.Distance)
+        {
+            if (polygonalFace2D == null || polygonalFace2Ds == null)
+            {
+                return null;
+            }
+
+            BoundingBox2D? boundingBox2D = polygonalFace2D.GetBoundingBox();
+
+            List<Polygon> polygons_Cutting = [];
+            foreach (PolygonalFace2D? polygonalFace2D_Cutting in polygonalFace2Ds)
+            {
+                if (polygonalFace2D_Cutting == null)
+                {
+                    continue;
+                }
+
+                if (boundingBox2D != null && polygonalFace2D_Cutting.GetBoundingBox() is BoundingBox2D boundingBox2D_Cutting && !boundingBox2D.InRange(boundingBox2D_Cutting, tolerance))
+                {
+                    continue;
+                }
+
+                if (polygonalFace2D_Cutting.ToNTS() is Polygon polygon_Cutting)
+                {
+                    polygons_Cutting.Add(polygon_Cutting);
+                }
+            }
+
+            if (polygons_Cutting.Count == 0)
+            {
+                return [new PolygonalFace2D(polygonalFace2D)];
+            }
+
+            Polygon? polygon = polygonalFace2D.ToNTS();
+            if (polygon == null)
+            {
+                return null;
+            }
+
+            NetTopologySuite.Geometries.Geometry geometry = polygon.IsValid ? polygon : GeometryFixer.Fix(polygon);
+
+            List<Polygon>? polygons_Union = Union(polygons_Cutting, tolerance);
+            if (polygons_Union == null)
+            {
+                return null;
+            }
+
+            if (polygons_Union.Count == 0)
+            {
+                return [new PolygonalFace2D(polygonalFace2D)];
+            }
+
+            NetTopologySuite.Geometries.Geometry geometry_Cutting = polygons_Union.Count == 1 ? polygons_Union[0] : polygon.Factory.CreateMultiPolygon([.. polygons_Union]);
+
+            NetTopologySuite.Geometries.Geometry? geometry_Difference;
+            try
+            {
+                geometry_Difference = geometry.Difference(geometry_Cutting);
+            }
+            catch
+            {
+                return null;
+            }
+
+            List<PolygonalFace2D> result = [];
+            if (geometry_Difference == null || geometry_Difference.IsEmpty)
+            {
+                return result;
+            }
+
+            List<IGeometry2D>? geometry2Ds = geometry_Difference.ToDiGi_Geometry2Ds();
+            if (geometry2Ds != null)
+            {
+                foreach (IGeometry2D geometry2D in geometry2Ds)
+                {
+                    if (geometry2D is PolygonalFace2D polygonalFace2D_Result)
+                    {
+                        result.Add(polygonalFace2D_Result);
+                    }
+                }
+            }
+
+            return result;
+        }
     }
 }

@@ -5227,6 +5227,55 @@ The [System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 
 [System\.Boolean](https://learn.microsoft.com/en-us/dotnet/api/system.boolean 'System\.Boolean')  
 A [System\.Boolean](https://learn.microsoft.com/en-us/dotnet/api/system.boolean 'System\.Boolean') value indicating whether the points are coplanar; returns `false` if the collection is null\.
 
+<a name='DiGi.Geometry.Spatial.Query.CoplanarIntersection(thisDiGi.Geometry.Spatial.Interfaces.IPolygonalFace3D,DiGi.Geometry.Spatial.Interfaces.IPolygonalFace3D,double,double,double)'></a>
+
+## Query\.CoplanarIntersection\(this IPolygonalFace3D, IPolygonalFace3D, double, double, double\) Method
+
+Gets the part two nearly coplanar polygonal faces have in common: the faces of the second one that overlap the first, in the plane of the first\.
+
+The faces are nearly coplanar when their planes are parallel within [maxAngle](DiGi.Geometry.Spatial.md#DiGi.Geometry.Spatial.Query.CoplanarIntersection(thisDiGi.Geometry.Spatial.Interfaces.IPolygonalFace3D,DiGi.Geometry.Spatial.Interfaces.IPolygonalFace3D,double,double,double).maxAngle 'DiGi\.Geometry\.Spatial\.Query\.CoplanarIntersection\(this DiGi\.Geometry\.Spatial\.Interfaces\.IPolygonalFace3D, DiGi\.Geometry\.Spatial\.Interfaces\.IPolygonalFace3D, double, double, double\)\.maxAngle') - facing either way - and every vertex of the second face lies within [maxDistance](DiGi.Geometry.Spatial.md#DiGi.Geometry.Spatial.Query.CoplanarIntersection(thisDiGi.Geometry.Spatial.Interfaces.IPolygonalFace3D,DiGi.Geometry.Spatial.Interfaces.IPolygonalFace3D,double,double,double).maxDistance 'DiGi\.Geometry\.Spatial\.Query\.CoplanarIntersection\(this DiGi\.Geometry\.Spatial\.Interfaces\.IPolygonalFace3D, DiGi\.Geometry\.Spatial\.Interfaces\.IPolygonalFace3D, double, double, double\)\.maxDistance') of the plane of the first. The second face is then projected onto that plane and intersected with the first in its 2D coordinates. Pieces smaller than the square of [tolerance](DiGi.Geometry.Spatial.md#DiGi.Geometry.Spatial.Query.CoplanarIntersection(thisDiGi.Geometry.Spatial.Interfaces.IPolygonalFace3D,DiGi.Geometry.Spatial.Interfaces.IPolygonalFace3D,double,double,double).tolerance 'DiGi\.Geometry\.Spatial\.Query\.CoplanarIntersection\(this DiGi\.Geometry\.Spatial\.Interfaces\.IPolygonalFace3D, DiGi\.Geometry\.Spatial\.Interfaces\.IPolygonalFace3D, double, double, double\)\.tolerance') are dropped as slivers, so two faces meeting along an edge only have nothing in common.
+
+The cheap tests come first and stop at the first failure - the angle between the normals, then the vertex distances - so the intersection itself is only computed for faces that can overlap.
+
+```csharp
+public static System.Collections.Generic.List<DiGi.Geometry.Spatial.Classes.PolygonalFace3D>? CoplanarIntersection(this DiGi.Geometry.Spatial.Interfaces.IPolygonalFace3D? polygonalFace3D_1, DiGi.Geometry.Spatial.Interfaces.IPolygonalFace3D? polygonalFace3D_2, double maxDistance, double maxAngle, double tolerance=1E-06);
+```
+#### Parameters
+
+<a name='DiGi.Geometry.Spatial.Query.CoplanarIntersection(thisDiGi.Geometry.Spatial.Interfaces.IPolygonalFace3D,DiGi.Geometry.Spatial.Interfaces.IPolygonalFace3D,double,double,double).polygonalFace3D_1'></a>
+
+`polygonalFace3D_1` [DiGi\.Geometry\.Spatial\.Interfaces\.IPolygonalFace3D](https://learn.microsoft.com/en-us/dotnet/api/digi.geometry.spatial.interfaces.ipolygonalface3d 'DiGi\.Geometry\.Spatial\.Interfaces\.IPolygonalFace3D')
+
+The first face, whose plane the result lies in\. This value can be null\.
+
+<a name='DiGi.Geometry.Spatial.Query.CoplanarIntersection(thisDiGi.Geometry.Spatial.Interfaces.IPolygonalFace3D,DiGi.Geometry.Spatial.Interfaces.IPolygonalFace3D,double,double,double).polygonalFace3D_2'></a>
+
+`polygonalFace3D_2` [DiGi\.Geometry\.Spatial\.Interfaces\.IPolygonalFace3D](https://learn.microsoft.com/en-us/dotnet/api/digi.geometry.spatial.interfaces.ipolygonalface3d 'DiGi\.Geometry\.Spatial\.Interfaces\.IPolygonalFace3D')
+
+The second face\. This value can be null\.
+
+<a name='DiGi.Geometry.Spatial.Query.CoplanarIntersection(thisDiGi.Geometry.Spatial.Interfaces.IPolygonalFace3D,DiGi.Geometry.Spatial.Interfaces.IPolygonalFace3D,double,double,double).maxDistance'></a>
+
+`maxDistance` [System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')
+
+The largest distance between a vertex of the second face and the plane of the first\.
+
+<a name='DiGi.Geometry.Spatial.Query.CoplanarIntersection(thisDiGi.Geometry.Spatial.Interfaces.IPolygonalFace3D,DiGi.Geometry.Spatial.Interfaces.IPolygonalFace3D,double,double,double).maxAngle'></a>
+
+`maxAngle` [System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')
+
+The largest angle \[rad\] between the planes of the faces\.
+
+<a name='DiGi.Geometry.Spatial.Query.CoplanarIntersection(thisDiGi.Geometry.Spatial.Interfaces.IPolygonalFace3D,DiGi.Geometry.Spatial.Interfaces.IPolygonalFace3D,double,double,double).tolerance'></a>
+
+`tolerance` [System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')
+
+The distance tolerance\.
+
+#### Returns
+[System\.Collections\.Generic\.List&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')[PolygonalFace3D](DiGi.Geometry.Spatial.Classes.md#DiGi.Geometry.Spatial.Classes.PolygonalFace3D 'DiGi\.Geometry\.Spatial\.Classes\.PolygonalFace3D')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')  
+The common faces, in the plane of the first face; an empty list when the faces are not nearly coplanar or do not overlap; null when either face is null or has no plane\.
+
 <a name='DiGi.Geometry.Spatial.Query.Decompose(thisDiGi.Geometry.Spatial.Classes.Transform3D,DiGi.Geometry.Spatial.Classes.Vector3D,DiGi.Geometry.Spatial.Classes.Transform3D,DiGi.Geometry.Spatial.Classes.Vector3D)'></a>
 
 ## Query\.Decompose\(this Transform3D, Vector3D, Transform3D, Vector3D\) Method

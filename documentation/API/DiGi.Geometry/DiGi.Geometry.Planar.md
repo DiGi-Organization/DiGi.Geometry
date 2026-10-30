@@ -4846,6 +4846,41 @@ A [System\.Collections\.Generic\.List&lt;&gt;](https://learn.microsoft.com/en-us
 ### Remarks
 The computation is delegated to [DifferenceResult2D\(this IPolygonalFace2D, IPolygonalFace2D\)](DiGi.Geometry.Planar.md#DiGi.Geometry.Planar.Create.DifferenceResult2D(thisDiGi.Geometry.Planar.Interfaces.IPolygonalFace2D,DiGi.Geometry.Planar.Interfaces.IPolygonalFace2D) 'DiGi\.Geometry\.Planar\.Create\.DifferenceResult2D\(this DiGi\.Geometry\.Planar\.Interfaces\.IPolygonalFace2D, DiGi\.Geometry\.Planar\.Interfaces\.IPolygonalFace2D\)'); only the polygonal faces of the result are returned\. Use the result object directly to access lower\-dimensional \(segment/point\) difference geometries\.
 
+<a name='DiGi.Geometry.Planar.Query.Difference(thisDiGi.Geometry.Planar.Classes.PolygonalFace2D,System.Collections.Generic.IEnumerable_DiGi.Geometry.Planar.Classes.PolygonalFace2D_,double)'></a>
+
+## Query\.Difference\(this PolygonalFace2D, IEnumerable\<PolygonalFace2D\>, double\) Method
+
+Calculates the part of a polygonal face that none of the given polygonal faces covers\.
+
+The cutting faces that come within [tolerance](DiGi.Geometry.Planar.md#DiGi.Geometry.Planar.Query.Difference(thisDiGi.Geometry.Planar.Classes.PolygonalFace2D,System.Collections.Generic.IEnumerable_DiGi.Geometry.Planar.Classes.PolygonalFace2D_,double).tolerance 'DiGi\.Geometry\.Planar\.Query\.Difference\(this DiGi\.Geometry\.Planar\.Classes\.PolygonalFace2D, System\.Collections\.Generic\.IEnumerable\<DiGi\.Geometry\.Planar\.Classes\.PolygonalFace2D\>, double\)\.tolerance') of the face's bounding box are united first and subtracted in a single overlay, so the cost is one difference however many faces cut - subtracting them one by one would overlay every intermediate result again. Invalid inputs are repaired first, as in [Difference\(this PolygonalFace2D, PolygonalFace2D\)](DiGi.Geometry.Planar.md#DiGi.Geometry.Planar.Query.Difference(thisDiGi.Geometry.Planar.Classes.PolygonalFace2D,DiGi.Geometry.Planar.Classes.PolygonalFace2D) 'DiGi\.Geometry\.Planar\.Query\.Difference\(this DiGi\.Geometry\.Planar\.Classes\.PolygonalFace2D, DiGi\.Geometry\.Planar\.Classes\.PolygonalFace2D\)').
+
+```csharp
+public static System.Collections.Generic.List<DiGi.Geometry.Planar.Classes.PolygonalFace2D>? Difference(this DiGi.Geometry.Planar.Classes.PolygonalFace2D? polygonalFace2D, System.Collections.Generic.IEnumerable<DiGi.Geometry.Planar.Classes.PolygonalFace2D?>? polygonalFace2Ds, double tolerance=1E-06);
+```
+#### Parameters
+
+<a name='DiGi.Geometry.Planar.Query.Difference(thisDiGi.Geometry.Planar.Classes.PolygonalFace2D,System.Collections.Generic.IEnumerable_DiGi.Geometry.Planar.Classes.PolygonalFace2D_,double).polygonalFace2D'></a>
+
+`polygonalFace2D` [PolygonalFace2D](DiGi.Geometry.Planar.Classes.md#DiGi.Geometry.Planar.Classes.PolygonalFace2D 'DiGi\.Geometry\.Planar\.Classes\.PolygonalFace2D')
+
+The face to subtract from\. This value can be null\.
+
+<a name='DiGi.Geometry.Planar.Query.Difference(thisDiGi.Geometry.Planar.Classes.PolygonalFace2D,System.Collections.Generic.IEnumerable_DiGi.Geometry.Planar.Classes.PolygonalFace2D_,double).polygonalFace2Ds'></a>
+
+`polygonalFace2Ds` [System\.Collections\.Generic\.IEnumerable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[PolygonalFace2D](DiGi.Geometry.Planar.Classes.md#DiGi.Geometry.Planar.Classes.PolygonalFace2D 'DiGi\.Geometry\.Planar\.Classes\.PolygonalFace2D')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')
+
+The faces to subtract\. Null items are skipped\. This value can be null\.
+
+<a name='DiGi.Geometry.Planar.Query.Difference(thisDiGi.Geometry.Planar.Classes.PolygonalFace2D,System.Collections.Generic.IEnumerable_DiGi.Geometry.Planar.Classes.PolygonalFace2D_,double).tolerance'></a>
+
+`tolerance` [System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')
+
+The distance tolerance, used for the bounding box test and the union of the cutting faces\.
+
+#### Returns
+[System\.Collections\.Generic\.List&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')[PolygonalFace2D](DiGi.Geometry.Planar.Classes.md#DiGi.Geometry.Planar.Classes.PolygonalFace2D 'DiGi\.Geometry\.Planar\.Classes\.PolygonalFace2D')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')  
+The faces that remain; a copy of [polygonalFace2D](DiGi.Geometry.Planar.md#DiGi.Geometry.Planar.Query.Difference(thisDiGi.Geometry.Planar.Classes.PolygonalFace2D,System.Collections.Generic.IEnumerable_DiGi.Geometry.Planar.Classes.PolygonalFace2D_,double).polygonalFace2D 'DiGi\.Geometry\.Planar\.Query\.Difference\(this DiGi\.Geometry\.Planar\.Classes\.PolygonalFace2D, System\.Collections\.Generic\.IEnumerable\<DiGi\.Geometry\.Planar\.Classes\.PolygonalFace2D\>, double\)\.polygonalFace2D') when no face cuts it; an empty list when it is covered whole; null when either input is null or the overlay fails\.
+
 <a name='DiGi.Geometry.Planar.Query.Difference(thisDiGi.Geometry.Planar.Interfaces.IPolygonal2D,DiGi.Geometry.Planar.Interfaces.IPolygonal2D)'></a>
 
 ## Query\.Difference\(this IPolygonal2D, IPolygonal2D\) Method
@@ -5760,6 +5795,41 @@ A [System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'S
 #### Returns
 [System\.Collections\.Generic\.List&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')[Point2D](DiGi.Geometry.Planar.Classes.md#DiGi.Geometry.Planar.Classes.Point2D 'DiGi\.Geometry\.Planar\.Classes\.Point2D')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')  
 A `List<Point2D>` containing the fitted points if successful; otherwise, [null](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/null 'https://docs\.microsoft\.com/en\-us/dotnet/csharp/language\-reference/keywords/null')\.
+
+<a name='DiGi.Geometry.Planar.Query.InRange(thisDiGi.Geometry.Planar.Interfaces.IPolygonalFace2D,DiGi.Geometry.Planar.Interfaces.IPolygonalFace2D,double)'></a>
+
+## Query\.InRange\(this IPolygonalFace2D, IPolygonalFace2D, double\) Method
+
+Determines whether two polygonal faces overlap, one contains the other, or the gap between them is below the tolerance\.
+
+The bounding boxes are compared first, grown by [tolerance](DiGi.Geometry.Planar.md#DiGi.Geometry.Planar.Query.InRange(thisDiGi.Geometry.Planar.Interfaces.IPolygonalFace2D,DiGi.Geometry.Planar.Interfaces.IPolygonalFace2D,double).tolerance 'DiGi\.Geometry\.Planar\.Query\.InRange\(this DiGi\.Geometry\.Planar\.Interfaces\.IPolygonalFace2D, DiGi\.Geometry\.Planar\.Interfaces\.IPolygonalFace2D, double\)\.tolerance'), so two faces far apart cost no overlay; only faces whose boxes come that close are converted and tested with [InRange\(this Geometry, Geometry, double\)](DiGi.Geometry.Planar.md#DiGi.Geometry.Planar.Query.InRange(thisGeometry,Geometry,double) 'DiGi\.Geometry\.Planar\.Query\.InRange\(this Geometry, Geometry, double\)'). Unlike the distance between the two outlines, a face lying inside another counts as in range.
+
+```csharp
+public static bool InRange(this DiGi.Geometry.Planar.Interfaces.IPolygonalFace2D? polygonalFace2D_1, DiGi.Geometry.Planar.Interfaces.IPolygonalFace2D? polygonalFace2D_2, double tolerance=1E-06);
+```
+#### Parameters
+
+<a name='DiGi.Geometry.Planar.Query.InRange(thisDiGi.Geometry.Planar.Interfaces.IPolygonalFace2D,DiGi.Geometry.Planar.Interfaces.IPolygonalFace2D,double).polygonalFace2D_1'></a>
+
+`polygonalFace2D_1` [IPolygonalFace2D](DiGi.Geometry.Planar.Interfaces.md#DiGi.Geometry.Planar.Interfaces.IPolygonalFace2D 'DiGi\.Geometry\.Planar\.Interfaces\.IPolygonalFace2D')
+
+The first face\. This value can be null\.
+
+<a name='DiGi.Geometry.Planar.Query.InRange(thisDiGi.Geometry.Planar.Interfaces.IPolygonalFace2D,DiGi.Geometry.Planar.Interfaces.IPolygonalFace2D,double).polygonalFace2D_2'></a>
+
+`polygonalFace2D_2` [IPolygonalFace2D](DiGi.Geometry.Planar.Interfaces.md#DiGi.Geometry.Planar.Interfaces.IPolygonalFace2D 'DiGi\.Geometry\.Planar\.Interfaces\.IPolygonalFace2D')
+
+The second face\. This value can be null\.
+
+<a name='DiGi.Geometry.Planar.Query.InRange(thisDiGi.Geometry.Planar.Interfaces.IPolygonalFace2D,DiGi.Geometry.Planar.Interfaces.IPolygonalFace2D,double).tolerance'></a>
+
+`tolerance` [System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')
+
+The gap below which the faces are in range\.
+
+#### Returns
+[System\.Boolean](https://learn.microsoft.com/en-us/dotnet/api/system.boolean 'System\.Boolean')  
+True if the faces are in range of each other; otherwise, false, also when either face is null\.
 
 <a name='DiGi.Geometry.Planar.Query.InRange(thisGeometry,Geometry,double)'></a>
 
@@ -9506,6 +9576,45 @@ The distance tolerance used for the calculation\.
 #### Returns
 [VerticalPosition](DiGi.Geometry.Core.Enums.md#DiGi.Geometry.Core.Enums.VerticalPosition 'DiGi\.Geometry\.Core\.Enums\.VerticalPosition')  
 A [VerticalPosition](DiGi.Geometry.Core.Enums.md#DiGi.Geometry.Core.Enums.VerticalPosition 'DiGi\.Geometry\.Core\.Enums\.VerticalPosition') value indicating whether the point is above, below, or undefined relative to the geometry\.
+
+<a name='DiGi.Geometry.Planar.Query.ZOrderComparison_TKey_(System.Collections.Generic.IDictionary_TKey,DiGi.Geometry.Planar.Classes.BoundingBox2D_,double)'></a>
+
+## Query\.ZOrderComparison\<TKey\>\(IDictionary\<TKey,BoundingBox2D\>, double\) Method
+
+Gets a comparison that orders keys along a Z\-order \(Morton\) curve of their bounding boxes, so that consecutive keys lie close together\.
+
+Each box is placed in a square cell of [cellSize](DiGi.Geometry.Planar.md#DiGi.Geometry.Planar.Query.ZOrderComparison_TKey_(System.Collections.Generic.IDictionary_TKey,DiGi.Geometry.Planar.Classes.BoundingBox2D_,double).cellSize 'DiGi\.Geometry\.Planar\.Query\.ZOrderComparison\<TKey\>\(System\.Collections\.Generic\.IDictionary\<TKey,DiGi\.Geometry\.Planar\.Classes\.BoundingBox2D\>, double\)\.cellSize') by its lower-left corner, measured from the lower-left corner of all the boxes, and the cells are ordered by the interleaved bits of their column and row. A run of consecutive keys then covers a compact area rather than a strip, which is what batching spatial data needs. Keys of one cell are ordered by [System\.Collections\.Generic\.Comparer&lt;&gt;\.Default](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.comparer-1.default 'System\.Collections\.Generic\.Comparer\`1\.Default'), and keys with no box come last, so the order is total and repeatable.
+
+The Morton code of every key is computed once, when the comparison is created; a comparison then costs one lookup per key.
+
+```csharp
+public static System.Comparison<TKey> ZOrderComparison<TKey>(System.Collections.Generic.IDictionary<TKey,DiGi.Geometry.Planar.Classes.BoundingBox2D>? boundingBox2Ds, double cellSize)
+    where TKey : notnull;
+```
+#### Type parameters
+
+<a name='DiGi.Geometry.Planar.Query.ZOrderComparison_TKey_(System.Collections.Generic.IDictionary_TKey,DiGi.Geometry.Planar.Classes.BoundingBox2D_,double).TKey'></a>
+
+`TKey`
+
+The type of the keys\.
+#### Parameters
+
+<a name='DiGi.Geometry.Planar.Query.ZOrderComparison_TKey_(System.Collections.Generic.IDictionary_TKey,DiGi.Geometry.Planar.Classes.BoundingBox2D_,double).boundingBox2Ds'></a>
+
+`boundingBox2Ds` [System\.Collections\.Generic\.IDictionary&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.idictionary-2 'System\.Collections\.Generic\.IDictionary\`2')[TKey](DiGi.Geometry.Planar.md#DiGi.Geometry.Planar.Query.ZOrderComparison_TKey_(System.Collections.Generic.IDictionary_TKey,DiGi.Geometry.Planar.Classes.BoundingBox2D_,double).TKey 'DiGi\.Geometry\.Planar\.Query\.ZOrderComparison\<TKey\>\(System\.Collections\.Generic\.IDictionary\<TKey,DiGi\.Geometry\.Planar\.Classes\.BoundingBox2D\>, double\)\.TKey')[,](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.idictionary-2 'System\.Collections\.Generic\.IDictionary\`2')[BoundingBox2D](DiGi.Geometry.Planar.Classes.md#DiGi.Geometry.Planar.Classes.BoundingBox2D 'DiGi\.Geometry\.Planar\.Classes\.BoundingBox2D')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.idictionary-2 'System\.Collections\.Generic\.IDictionary\`2')
+
+The bounding boxes, by key\. This value can be null\.
+
+<a name='DiGi.Geometry.Planar.Query.ZOrderComparison_TKey_(System.Collections.Generic.IDictionary_TKey,DiGi.Geometry.Planar.Classes.BoundingBox2D_,double).cellSize'></a>
+
+`cellSize` [System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')
+
+The side of a cell\.
+
+#### Returns
+[System\.Comparison&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.comparison-1 'System\.Comparison\`1')[TKey](DiGi.Geometry.Planar.md#DiGi.Geometry.Planar.Query.ZOrderComparison_TKey_(System.Collections.Generic.IDictionary_TKey,DiGi.Geometry.Planar.Classes.BoundingBox2D_,double).TKey 'DiGi\.Geometry\.Planar\.Query\.ZOrderComparison\<TKey\>\(System\.Collections\.Generic\.IDictionary\<TKey,DiGi\.Geometry\.Planar\.Classes\.BoundingBox2D\>, double\)\.TKey')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.comparison-1 'System\.Comparison\`1')  
+The comparison\.
 ### Structs
 
 <a name='DiGi.Geometry.Planar.Query.PointAlongSegmentComparer'></a>

@@ -1,4 +1,6 @@
-﻿using NetTopologySuite.Geometries;
+﻿using DiGi.Geometry.Planar.Classes;
+using DiGi.Geometry.Planar.Interfaces;
+using NetTopologySuite.Geometries;
 
 namespace DiGi.Geometry.Planar
 {
@@ -48,6 +50,34 @@ namespace DiGi.Geometry.Planar
             // Since we ensured Polygons are used for closed loops,
             // any point inside will result in a distance of 0 (already caught by Intersects).
             return geometry_Temp_1.Distance(geometry_Temp_2) < tolerance;
+        }
+
+        /// <summary>
+        /// Determines whether two polygonal faces overlap, one contains the other, or the gap between them is below the tolerance.
+        /// <para>The bounding boxes are compared first, grown by <paramref name="tolerance"/>, so two faces far apart cost no overlay; only faces whose boxes come that close are converted and tested with <see cref="InRange(NetTopologySuite.Geometries.Geometry, NetTopologySuite.Geometries.Geometry, double)"/>. Unlike the distance between the two outlines, a face lying inside another counts as in range.</para>
+        /// </summary>
+        /// <param name="polygonalFace2D_1">The first face. This value can be null.</param>
+        /// <param name="polygonalFace2D_2">The second face. This value can be null.</param>
+        /// <param name="tolerance">The gap below which the faces are in range.</param>
+        /// <returns>True if the faces are in range of each other; otherwise, false, also when either face is null.</returns>
+        public static bool InRange(this IPolygonalFace2D? polygonalFace2D_1, IPolygonalFace2D? polygonalFace2D_2, double tolerance = DiGi.Core.Constants.Tolerance.Distance)
+        {
+            if (polygonalFace2D_1 is null || polygonalFace2D_2 is null)
+            {
+                return false;
+            }
+
+            if (polygonalFace2D_1.GetBoundingBox() is not BoundingBox2D boundingBox2D_1 || polygonalFace2D_2.GetBoundingBox() is not BoundingBox2D boundingBox2D_2 || !boundingBox2D_1.InRange(boundingBox2D_2, tolerance))
+            {
+                return false;
+            }
+
+            if (polygonalFace2D_1.ToNTS() is not Polygon polygon_1 || polygonalFace2D_2.ToNTS() is not Polygon polygon_2)
+            {
+                return false;
+            }
+
+            return InRange(polygon_1, polygon_2, tolerance);
         }
     }
 }
