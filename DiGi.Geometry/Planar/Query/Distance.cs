@@ -192,31 +192,37 @@ namespace DiGi.Geometry.Planar
                     Point2D? point2D_End2 = point2Ds_End2[int_J];
 
                     Point2D? point2D_Intersection = IntersectionPoint(point2D_Start1, point2D_End1, point2D_Start2, point2D_End2, out Point2D? point2D_Closest1_Temp, out Point2D? point2D_Closest2_Temp, tolerance);
-                    if (point2D_Closest1_Temp != null && point2D_Closest2_Temp != null)
-                    {
-                        double double_Dx_Temp = point2D_Closest1_Temp.X - point2D_Closest2_Temp.X;
-                        double double_Dy_Temp = point2D_Closest1_Temp.Y - point2D_Closest2_Temp.Y;
-                        double double_DistanceSq = double_Dx_Temp * double_Dx_Temp + double_Dy_Temp * double_Dy_Temp;
-                        if (double_DistanceSq == 0)
-                        {
-                            point2D_Closest1 = point2D_Closest1_Temp;
-                            point2D_Closest2 = point2D_Closest2_Temp;
-                            return 0;
-                        }
-
-                        if (double_DistanceSq < resultSq)
-                        {
-                            point2D_Closest1 = point2D_Closest1_Temp;
-                            point2D_Closest2 = point2D_Closest2_Temp;
-                            resultSq = double_DistanceSq;
-                        }
-                    }
-
                     if (point2D_Intersection != null && point2D_Closest1_Temp == null && point2D_Closest2_Temp == null)
                     {
+                        // The intersection lies on both segments within tolerance: the distance is zero.
                         point2D_Closest1 = point2D_Intersection;
                         point2D_Closest2 = new Point2D(point2D_Intersection);
                         return 0;
+                    }
+
+                    // The closest points clamped from the line-intersection parameters are not the true minimum (and are never
+                    // produced for parallel segments), so the closest pair is computed exactly (DiGi-Organization/DiGi.Geometry#11).
+                    ClosestPoints(point2D_Start1, point2D_End1, point2D_Start2, point2D_End2, out Point2D? point2D_Closest1_Exact, out Point2D? point2D_Closest2_Exact);
+                    if (point2D_Closest1_Exact == null || point2D_Closest2_Exact == null)
+                    {
+                        continue;
+                    }
+
+                    double double_Dx_Temp = point2D_Closest1_Exact.X - point2D_Closest2_Exact.X;
+                    double double_Dy_Temp = point2D_Closest1_Exact.Y - point2D_Closest2_Exact.Y;
+                    double double_DistanceSq = double_Dx_Temp * double_Dx_Temp + double_Dy_Temp * double_Dy_Temp;
+                    if (double_DistanceSq == 0)
+                    {
+                        point2D_Closest1 = point2D_Closest1_Exact;
+                        point2D_Closest2 = point2D_Closest2_Exact;
+                        return 0;
+                    }
+
+                    if (double_DistanceSq < resultSq)
+                    {
+                        point2D_Closest1 = point2D_Closest1_Exact;
+                        point2D_Closest2 = point2D_Closest2_Exact;
+                        resultSq = double_DistanceSq;
                     }
                 }
             }
@@ -263,6 +269,119 @@ namespace DiGi.Geometry.Planar
         public static double Distance(ISegmentable2D? segmentable2D, BoundingBox2D? boundingBox2D, out Point2D? point2D_Closest1, out Point2D? point2D_Closest2, double tolerance = DiGi.Core.Constants.Tolerance.Distance)
         {
             return Distance(boundingBox2D, segmentable2D, out point2D_Closest2, out point2D_Closest1, tolerance);
+        }
+
+        /// <summary>
+        /// Computes the pair of closest points between two segments represented by their endpoints. Both outputs are null if any endpoint is null.
+        /// </summary>
+        /// <param name="point2D_1_Start">Start point of the first segment.</param>
+        /// <param name="point2D_1_End">End point of the first segment.</param>
+        /// <param name="point2D_2_Start">Start point of the second segment.</param>
+        /// <param name="point2D_2_End">End point of the second segment.</param>
+        /// <param name="point2D_Closest1">When this method returns, the closest point on the first segment; null if any endpoint is null.</param>
+        /// <param name="point2D_Closest2">When this method returns, the closest point on the second segment; null if any endpoint is null.</param>
+        private static void ClosestPoints(Point2D? point2D_1_Start, Point2D? point2D_1_End, Point2D? point2D_2_Start, Point2D? point2D_2_End, out Point2D? point2D_Closest1, out Point2D? point2D_Closest2)
+        {
+            point2D_Closest1 = null;
+            point2D_Closest2 = null;
+
+            if (point2D_1_Start == null || point2D_1_End == null || point2D_2_Start == null || point2D_2_End == null)
+            {
+                return;
+            }
+
+            double double_StartX_1 = point2D_1_Start.X;
+            double double_StartY_1 = point2D_1_Start.Y;
+            double double_EndX_1 = point2D_1_End.X;
+            double double_EndY_1 = point2D_1_End.Y;
+
+            double double_StartX_2 = point2D_2_Start.X;
+            double double_StartY_2 = point2D_2_Start.Y;
+            double double_EndX_2 = point2D_2_End.X;
+            double double_EndY_2 = point2D_2_End.Y;
+
+            // The closest pair of two segments that do not cross always contains an endpoint of one of them,
+            // so the four endpoint-to-segment projections give the exact minimum, parallel and collinear included.
+            ClosestOnSegment(double_StartX_1, double_StartY_1, double_StartX_2, double_StartY_2, double_EndX_2, double_EndY_2, out double double_X_1, out double double_Y_1);
+            double double_DistanceSq_1 = SquaredDistance(double_StartX_1, double_StartY_1, double_X_1, double_Y_1);
+
+            ClosestOnSegment(double_EndX_1, double_EndY_1, double_StartX_2, double_StartY_2, double_EndX_2, double_EndY_2, out double double_X_2, out double double_Y_2);
+            double double_DistanceSq_2 = SquaredDistance(double_EndX_1, double_EndY_1, double_X_2, double_Y_2);
+
+            ClosestOnSegment(double_StartX_2, double_StartY_2, double_StartX_1, double_StartY_1, double_EndX_1, double_EndY_1, out double double_X_3, out double double_Y_3);
+            double double_DistanceSq_3 = SquaredDistance(double_StartX_2, double_StartY_2, double_X_3, double_Y_3);
+
+            ClosestOnSegment(double_EndX_2, double_EndY_2, double_StartX_1, double_StartY_1, double_EndX_1, double_EndY_1, out double double_X_4, out double double_Y_4);
+            double double_DistanceSq_4 = SquaredDistance(double_EndX_2, double_EndY_2, double_X_4, double_Y_4);
+
+            if (double_DistanceSq_1 <= double_DistanceSq_2 && double_DistanceSq_1 <= double_DistanceSq_3 && double_DistanceSq_1 <= double_DistanceSq_4)
+            {
+                point2D_Closest1 = new Point2D(double_StartX_1, double_StartY_1);
+                point2D_Closest2 = new Point2D(double_X_1, double_Y_1);
+                return;
+            }
+
+            if (double_DistanceSq_2 <= double_DistanceSq_3 && double_DistanceSq_2 <= double_DistanceSq_4)
+            {
+                point2D_Closest1 = new Point2D(double_EndX_1, double_EndY_1);
+                point2D_Closest2 = new Point2D(double_X_2, double_Y_2);
+                return;
+            }
+
+            if (double_DistanceSq_3 <= double_DistanceSq_4)
+            {
+                point2D_Closest1 = new Point2D(double_X_3, double_Y_3);
+                point2D_Closest2 = new Point2D(double_StartX_2, double_StartY_2);
+                return;
+            }
+
+            point2D_Closest1 = new Point2D(double_X_4, double_Y_4);
+            point2D_Closest2 = new Point2D(double_EndX_2, double_EndY_2);
+        }
+
+        /// <summary>
+        /// Computes the point on a segment closest to the given point, with the parameter clamped to the segment.
+        /// </summary>
+        /// <param name="pointX">X coordinate of the point.</param>
+        /// <param name="pointY">Y coordinate of the point.</param>
+        /// <param name="startX">X coordinate of the segment start.</param>
+        /// <param name="startY">Y coordinate of the segment start.</param>
+        /// <param name="endX">X coordinate of the segment end.</param>
+        /// <param name="endY">Y coordinate of the segment end.</param>
+        /// <param name="closestX">When this method returns, the X coordinate of the closest point on the segment.</param>
+        /// <param name="closestY">When this method returns, the Y coordinate of the closest point on the segment.</param>
+        private static void ClosestOnSegment(double pointX, double pointY, double startX, double startY, double endX, double endY, out double closestX, out double closestY)
+        {
+            double double_VectorX = endX - startX;
+            double double_VectorY = endY - startY;
+            double double_LengthSq = (double_VectorX * double_VectorX) + (double_VectorY * double_VectorY);
+            double double_Parameter = double_LengthSq <= 0 ? 0 : (((pointX - startX) * double_VectorX + (pointY - startY) * double_VectorY) / double_LengthSq);
+            if (double_Parameter < 0)
+            {
+                double_Parameter = 0;
+            }
+            else if (double_Parameter > 1)
+            {
+                double_Parameter = 1;
+            }
+
+            closestX = startX + (double_Parameter * double_VectorX);
+            closestY = startY + (double_Parameter * double_VectorY);
+        }
+
+        /// <summary>
+        /// Computes the squared Euclidean distance between two points given by coordinates.
+        /// </summary>
+        /// <param name="x_1">X coordinate of the first point.</param>
+        /// <param name="y_1">Y coordinate of the first point.</param>
+        /// <param name="x_2">X coordinate of the second point.</param>
+        /// <param name="y_2">Y coordinate of the second point.</param>
+        /// <returns>The squared distance.</returns>
+        private static double SquaredDistance(double x_1, double y_1, double x_2, double y_2)
+        {
+            double double_Dx = x_1 - x_2;
+            double double_Dy = y_1 - y_2;
+            return (double_Dx * double_Dx) + (double_Dy * double_Dy);
         }
     }
 }

@@ -3981,6 +3981,65 @@ The collection of [Point2D](DiGi.Geometry.Planar.Classes.md#DiGi.Geometry.Planar
 [Point2D](DiGi.Geometry.Planar.Classes.md#DiGi.Geometry.Planar.Classes.Point2D 'DiGi\.Geometry\.Planar\.Classes\.Point2D')  
 A [Point2D](DiGi.Geometry.Planar.Classes.md#DiGi.Geometry.Planar.Classes.Point2D 'DiGi\.Geometry\.Planar\.Classes\.Point2D') representing the centroid, or null if the input collection is null or empty\.
 
+<a name='DiGi.Geometry.Planar.Query.ClosestOnSegment(double,double,double,double,double,double,double,double)'></a>
+
+## Query\.ClosestOnSegment\(double, double, double, double, double, double, double, double\) Method
+
+Computes the point on a segment closest to the given point, with the parameter clamped to the segment\.
+
+```csharp
+private static void ClosestOnSegment(double pointX, double pointY, double startX, double startY, double endX, double endY, out double closestX, out double closestY);
+```
+#### Parameters
+
+<a name='DiGi.Geometry.Planar.Query.ClosestOnSegment(double,double,double,double,double,double,double,double).pointX'></a>
+
+`pointX` [System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')
+
+X coordinate of the point\.
+
+<a name='DiGi.Geometry.Planar.Query.ClosestOnSegment(double,double,double,double,double,double,double,double).pointY'></a>
+
+`pointY` [System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')
+
+Y coordinate of the point\.
+
+<a name='DiGi.Geometry.Planar.Query.ClosestOnSegment(double,double,double,double,double,double,double,double).startX'></a>
+
+`startX` [System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')
+
+X coordinate of the segment start\.
+
+<a name='DiGi.Geometry.Planar.Query.ClosestOnSegment(double,double,double,double,double,double,double,double).startY'></a>
+
+`startY` [System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')
+
+Y coordinate of the segment start\.
+
+<a name='DiGi.Geometry.Planar.Query.ClosestOnSegment(double,double,double,double,double,double,double,double).endX'></a>
+
+`endX` [System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')
+
+X coordinate of the segment end\.
+
+<a name='DiGi.Geometry.Planar.Query.ClosestOnSegment(double,double,double,double,double,double,double,double).endY'></a>
+
+`endY` [System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')
+
+Y coordinate of the segment end\.
+
+<a name='DiGi.Geometry.Planar.Query.ClosestOnSegment(double,double,double,double,double,double,double,double).closestX'></a>
+
+`closestX` [System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')
+
+When this method returns, the X coordinate of the closest point on the segment\.
+
+<a name='DiGi.Geometry.Planar.Query.ClosestOnSegment(double,double,double,double,double,double,double,double).closestY'></a>
+
+`closestY` [System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')
+
+When this method returns, the Y coordinate of the closest point on the segment\.
+
 <a name='DiGi.Geometry.Planar.Query.ClosestPoint(thisDiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D,bool)'></a>
 
 ## Query\.ClosestPoint\(this Point2D, Point2D, Point2D, bool\) Method
@@ -4320,6 +4379,53 @@ When this method returns, contains the [System\.Double](https://learn.microsoft.
 #### Returns
 [Point2D](DiGi.Geometry.Planar.Classes.md#DiGi.Geometry.Planar.Classes.Point2D 'DiGi\.Geometry\.Planar\.Classes\.Point2D')  
 The closest [Point2D](DiGi.Geometry.Planar.Classes.md#DiGi.Geometry.Planar.Classes.Point2D 'DiGi\.Geometry\.Planar\.Classes\.Point2D') found, or [null](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/null 'https://docs\.microsoft\.com/en\-us/dotnet/csharp/language\-reference/keywords/null') if no points are available or inputs are null\.
+
+<a name='DiGi.Geometry.Planar.Query.ClosestPoints(DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D)'></a>
+
+## Query\.ClosestPoints\(Point2D, Point2D, Point2D, Point2D, Point2D, Point2D\) Method
+
+Computes the pair of closest points between two segments represented by their endpoints\. Both outputs are null if any endpoint is null\.
+
+```csharp
+private static void ClosestPoints(DiGi.Geometry.Planar.Classes.Point2D? point2D_1_Start, DiGi.Geometry.Planar.Classes.Point2D? point2D_1_End, DiGi.Geometry.Planar.Classes.Point2D? point2D_2_Start, DiGi.Geometry.Planar.Classes.Point2D? point2D_2_End, out DiGi.Geometry.Planar.Classes.Point2D? point2D_Closest1, out DiGi.Geometry.Planar.Classes.Point2D? point2D_Closest2);
+```
+#### Parameters
+
+<a name='DiGi.Geometry.Planar.Query.ClosestPoints(DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D).point2D_1_Start'></a>
+
+`point2D_1_Start` [Point2D](DiGi.Geometry.Planar.Classes.md#DiGi.Geometry.Planar.Classes.Point2D 'DiGi\.Geometry\.Planar\.Classes\.Point2D')
+
+Start point of the first segment\.
+
+<a name='DiGi.Geometry.Planar.Query.ClosestPoints(DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D).point2D_1_End'></a>
+
+`point2D_1_End` [Point2D](DiGi.Geometry.Planar.Classes.md#DiGi.Geometry.Planar.Classes.Point2D 'DiGi\.Geometry\.Planar\.Classes\.Point2D')
+
+End point of the first segment\.
+
+<a name='DiGi.Geometry.Planar.Query.ClosestPoints(DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D).point2D_2_Start'></a>
+
+`point2D_2_Start` [Point2D](DiGi.Geometry.Planar.Classes.md#DiGi.Geometry.Planar.Classes.Point2D 'DiGi\.Geometry\.Planar\.Classes\.Point2D')
+
+Start point of the second segment\.
+
+<a name='DiGi.Geometry.Planar.Query.ClosestPoints(DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D).point2D_2_End'></a>
+
+`point2D_2_End` [Point2D](DiGi.Geometry.Planar.Classes.md#DiGi.Geometry.Planar.Classes.Point2D 'DiGi\.Geometry\.Planar\.Classes\.Point2D')
+
+End point of the second segment\.
+
+<a name='DiGi.Geometry.Planar.Query.ClosestPoints(DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D).point2D_Closest1'></a>
+
+`point2D_Closest1` [Point2D](DiGi.Geometry.Planar.Classes.md#DiGi.Geometry.Planar.Classes.Point2D 'DiGi\.Geometry\.Planar\.Classes\.Point2D')
+
+When this method returns, the closest point on the first segment; null if any endpoint is null\.
+
+<a name='DiGi.Geometry.Planar.Query.ClosestPoints(DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D).point2D_Closest2'></a>
+
+`point2D_Closest2` [Point2D](DiGi.Geometry.Planar.Classes.md#DiGi.Geometry.Planar.Classes.Point2D 'DiGi\.Geometry\.Planar\.Classes\.Point2D')
+
+When this method returns, the closest point on the second segment; null if any endpoint is null\.
 
 <a name='DiGi.Geometry.Planar.Query.Collinear(thisDiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D,DiGi.Geometry.Planar.Classes.Point2D,double)'></a>
 
@@ -8921,6 +9027,45 @@ The distance tolerance for intersection detection\.
 #### Returns
 [System\.Collections\.Generic\.List&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')[Segment2D](DiGi.Geometry.Planar.Classes.md#DiGi.Geometry.Planar.Classes.Segment2D 'DiGi\.Geometry\.Planar\.Classes\.Segment2D')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')  
 A list of the resulting split segments, or null if the input is null\.
+
+<a name='DiGi.Geometry.Planar.Query.SquaredDistance(double,double,double,double)'></a>
+
+## Query\.SquaredDistance\(double, double, double, double\) Method
+
+Computes the squared Euclidean distance between two points given by coordinates\.
+
+```csharp
+private static double SquaredDistance(double x_1, double y_1, double x_2, double y_2);
+```
+#### Parameters
+
+<a name='DiGi.Geometry.Planar.Query.SquaredDistance(double,double,double,double).x_1'></a>
+
+`x_1` [System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')
+
+X coordinate of the first point\.
+
+<a name='DiGi.Geometry.Planar.Query.SquaredDistance(double,double,double,double).y_1'></a>
+
+`y_1` [System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')
+
+Y coordinate of the first point\.
+
+<a name='DiGi.Geometry.Planar.Query.SquaredDistance(double,double,double,double).x_2'></a>
+
+`x_2` [System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')
+
+X coordinate of the second point\.
+
+<a name='DiGi.Geometry.Planar.Query.SquaredDistance(double,double,double,double).y_2'></a>
+
+`y_2` [System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')
+
+Y coordinate of the second point\.
+
+#### Returns
+[System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')  
+The squared distance\.
 
 <a name='DiGi.Geometry.Planar.Query.SquareThinnessRatio(thisDiGi.Geometry.Planar.Interfaces.IPolygonal2D,double)'></a>
 
