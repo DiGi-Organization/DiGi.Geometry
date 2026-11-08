@@ -14,8 +14,8 @@ namespace DiGi.Geometry.Planar.Classes
         private readonly double tolerance = Tolerance.Distance;
         private readonly double maxLength;
 
-        private IPolygonal2D? input = null;
-        private IPolygonal2D? output = null;
+        private IPolygonal2D? input;
+        private IPolygonal2D? output;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Polygonal2DSelfIntersectionSolver"/> class.

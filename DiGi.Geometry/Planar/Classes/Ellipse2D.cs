@@ -663,9 +663,9 @@ namespace DiGi.Geometry.Planar.Classes
             double double_PtBx = double_CentX + double_Bx * b;
             double double_PtBy = double_CentY + double_By * b;
 
-            Point2D point2D_CenterClone = new Point2D(double_CentX, double_CentY);
-            Point2D point2D_AClone = new Point2D(double_PtAx, double_PtAy);
-            Point2D point2D_BClone = new Point2D(double_PtBx, double_PtBy);
+            Point2D point2D_CenterClone = new(double_CentX, double_CentY);
+            Point2D point2D_AClone = new(double_PtAx, double_PtAy);
+            Point2D point2D_BClone = new(double_PtBx, double_PtBy);
 
             if (!point2D_CenterClone.Transform(transform))
             {

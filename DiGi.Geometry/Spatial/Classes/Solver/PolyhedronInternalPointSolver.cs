@@ -13,10 +13,10 @@ namespace DiGi.Geometry.Spatial.Classes
     {
         private TPolyhedron? polyhedron;
 
-        private List<PolygonalFace3DInternalPointSolver?>? polygonalFace3DInternalPointSolvers = null;
+        private List<PolygonalFace3DInternalPointSolver?>? polygonalFace3DInternalPointSolvers;
 
-        private int i = 0;
-        private int j = 0;
+        private int i;
+        private int j;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PolyhedronInternalPointSolver{TPolyhedron}"/> class.

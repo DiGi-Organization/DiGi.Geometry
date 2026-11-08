@@ -255,7 +255,7 @@ namespace DiGi.Geometry.Spatial.Classes
             }
 
             // Store axis lengths and their corresponding direction vectors
-            var axes = new List<Tuple<double, Vector3D>>
+            List<Tuple<double, Vector3D>> axes = new()
             {
                 Tuple.Create(a, directionA),
                 Tuple.Create(b, directionB),

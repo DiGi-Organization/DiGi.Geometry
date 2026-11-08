@@ -196,7 +196,7 @@ namespace DiGi.Geometry.Spatial.Classes
             double double_U = vector3D_AxisX.X * double_Dx + vector3D_AxisX.Y * double_Dy + vector3D_AxisX.Z * double_Dz;
             double double_V = vector3D_AxisY.X * double_Dx + vector3D_AxisY.Y * double_Dy + vector3D_AxisY.Z * double_Dz;
 
-            Point2D point2D_Local = new Point2D(double_U, double_V);
+            Point2D point2D_Local = new(double_U, double_V);
             double double_D2D = geometry2D.Distance(point2D_Local);
             double double_H = plane.Distance(point3D);
 
@@ -361,7 +361,7 @@ namespace DiGi.Geometry.Spatial.Classes
             double double_U = vector3D_AxisX.X * double_Dx + vector3D_AxisX.Y * double_Dy + vector3D_AxisX.Z * double_Dz;
             double double_V = vector3D_AxisY.X * double_Dx + vector3D_AxisY.Y * double_Dy + vector3D_AxisY.Z * double_Dz;
 
-            Point2D point2D_Local = new Point2D(double_U, double_V);
+            Point2D point2D_Local = new(double_U, double_V);
             double double_D2D = geometry2D.Distance(point2D_Local);
             double double_H = plane.Distance(point3D);
 
@@ -418,7 +418,7 @@ namespace DiGi.Geometry.Spatial.Classes
             double double_U = vector3D_AxisX.X * double_Dx + vector3D_AxisX.Y * double_Dy + vector3D_AxisX.Z * double_Dz;
             double double_V = vector3D_AxisY.X * double_Dx + vector3D_AxisY.Y * double_Dy + vector3D_AxisY.Z * double_Dz;
 
-            Point2D point2D_Local = new Point2D(double_U, double_V);
+            Point2D point2D_Local = new(double_U, double_V);
             return geometry2D.Inside(point2D_Local, tolerance);
         }
 
@@ -469,7 +469,7 @@ namespace DiGi.Geometry.Spatial.Classes
             double double_U = vector3D_AxisX.X * double_Dx + vector3D_AxisX.Y * double_Dy + vector3D_AxisX.Z * double_Dz;
             double double_V = vector3D_AxisY.X * double_Dx + vector3D_AxisY.Y * double_Dy + vector3D_AxisY.Z * double_Dz;
 
-            Point2D point2D_Local = new Point2D(double_U, double_V);
+            Point2D point2D_Local = new(double_U, double_V);
             return geometry2D.On(point2D_Local, tolerance);
         }
 

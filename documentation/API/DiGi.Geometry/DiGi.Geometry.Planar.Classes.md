@@ -1584,7 +1584,7 @@ True if the transformation was successful\.
 ## ConvexHullComparer Class
 
 ```csharp
-internal class ConvexHullComparer : System.Collections.Generic.IComparer<DiGi.Geometry.Planar.Classes.Point2D>
+internal sealed class ConvexHullComparer : System.Collections.Generic.IComparer<DiGi.Geometry.Planar.Classes.Point2D>
 ```
 
 Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') → ConvexHullComparer

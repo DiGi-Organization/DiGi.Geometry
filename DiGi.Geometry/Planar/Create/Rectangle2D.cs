@@ -174,9 +174,8 @@ namespace DiGi.Geometry.Planar
             {
                 Vector2D direction = new(point2Ds_ConvexHull[i], point2Ds_ConvexHull[i + 1]);
                 double angle = direction.Angle(vector2D);
-                if (!angleHashSet.Contains(angle))
+                if (angleHashSet.Add(angle))
                 {
-                    angleHashSet.Add(angle);
                     Rectangle2D? rectangle_Temp = Rectangle2D(point2Ds_ConvexHull, direction);
                     if (rectangle_Temp == null)
                     {

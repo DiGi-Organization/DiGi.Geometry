@@ -143,13 +143,13 @@ namespace DiGi.Geometry.Spatial
                 return null;
             }
 
-            Point3D point3D_StartConverted = new Point3D(
+            Point3D point3D_StartConverted = new(
                 point3D_Origin.X + (vector3D_AxisY.X * point2D_Start.Y) + (vector3D_AxisX.X * point2D_Start.X),
                 point3D_Origin.Y + (vector3D_AxisY.Y * point2D_Start.Y) + (vector3D_AxisX.Y * point2D_Start.X),
                 point3D_Origin.Z + (vector3D_AxisY.Z * point2D_Start.Y) + (vector3D_AxisX.Z * point2D_Start.X)
             );
 
-            Point3D point3D_EndConverted = new Point3D(
+            Point3D point3D_EndConverted = new(
                 point3D_Origin.X + (vector3D_AxisY.X * point2D_End.Y) + (vector3D_AxisX.X * point2D_End.X),
                 point3D_Origin.Y + (vector3D_AxisY.Y * point2D_End.Y) + (vector3D_AxisX.Y * point2D_End.X),
                 point3D_Origin.Z + (vector3D_AxisY.Z * point2D_End.Y) + (vector3D_AxisX.Z * point2D_End.X)
@@ -222,19 +222,19 @@ namespace DiGi.Geometry.Spatial
                 return null;
             }
 
-            Point3D point3D_1 = new Point3D(
+            Point3D point3D_1 = new(
                 point3D_Origin.X + (vector3D_AxisY.X * point2D_1.Y) + (vector3D_AxisX.X * point2D_1.X),
                 point3D_Origin.Y + (vector3D_AxisY.Y * point2D_1.Y) + (vector3D_AxisX.Y * point2D_1.X),
                 point3D_Origin.Z + (vector3D_AxisY.Z * point2D_1.Y) + (vector3D_AxisX.Z * point2D_1.X)
             );
 
-            Point3D point3D_2 = new Point3D(
+            Point3D point3D_2 = new(
                 point3D_Origin.X + (vector3D_AxisY.X * point2D_2.Y) + (vector3D_AxisX.X * point2D_2.X),
                 point3D_Origin.Y + (vector3D_AxisY.Y * point2D_2.Y) + (vector3D_AxisX.Y * point2D_2.X),
                 point3D_Origin.Z + (vector3D_AxisY.Z * point2D_2.Y) + (vector3D_AxisX.Z * point2D_2.X)
             );
 
-            Point3D point3D_3 = new Point3D(
+            Point3D point3D_3 = new(
                 point3D_Origin.X + (vector3D_AxisY.X * point2D_3.Y) + (vector3D_AxisX.X * point2D_3.X),
                 point3D_Origin.Y + (vector3D_AxisY.Y * point2D_3.Y) + (vector3D_AxisX.Y * point2D_3.X),
                 point3D_Origin.Z + (vector3D_AxisY.Z * point2D_3.Y) + (vector3D_AxisX.Z * point2D_3.X)
@@ -390,12 +390,12 @@ namespace DiGi.Geometry.Spatial
             double double_Dy2 = point3D_End.Y - point3D_Origin.Y;
             double double_Dz2 = point3D_End.Z - point3D_Origin.Z;
 
-            Point2D point2D_StartConverted = new Point2D(
+            Point2D point2D_StartConverted = new(
                 vector3D_AxisX.X * double_Dx1 + vector3D_AxisX.Y * double_Dy1 + vector3D_AxisX.Z * double_Dz1,
                 vector3D_AxisY.X * double_Dx1 + vector3D_AxisY.Y * double_Dy1 + vector3D_AxisY.Z * double_Dz1
             );
 
-            Point2D point2D_EndConverted = new Point2D(
+            Point2D point2D_EndConverted = new(
                 vector3D_AxisX.X * double_Dx2 + vector3D_AxisX.Y * double_Dy2 + vector3D_AxisX.Z * double_Dz2,
                 vector3D_AxisY.X * double_Dx2 + vector3D_AxisY.Y * double_Dy2 + vector3D_AxisY.Z * double_Dz2
             );
@@ -479,17 +479,17 @@ namespace DiGi.Geometry.Spatial
             double double_Dy3 = point3D_3.Y - point3D_Origin.Y;
             double double_Dz3 = point3D_3.Z - point3D_Origin.Z;
 
-            Point2D point2D_1Converted = new Point2D(
+            Point2D point2D_1Converted = new(
                 vector3D_AxisX.X * double_Dx1 + vector3D_AxisX.Y * double_Dy1 + vector3D_AxisX.Z * double_Dz1,
                 vector3D_AxisY.X * double_Dx1 + vector3D_AxisY.Y * double_Dy1 + vector3D_AxisY.Z * double_Dz1
             );
 
-            Point2D point2D_2Converted = new Point2D(
+            Point2D point2D_2Converted = new(
                 vector3D_AxisX.X * double_Dx2 + vector3D_AxisX.Y * double_Dy2 + vector3D_AxisX.Z * double_Dz2,
                 vector3D_AxisY.X * double_Dx2 + vector3D_AxisY.Y * double_Dy2 + vector3D_AxisY.Z * double_Dz2
             );
 
-            Point2D point2D_3Converted = new Point2D(
+            Point2D point2D_3Converted = new(
                 vector3D_AxisX.X * double_Dx3 + vector3D_AxisX.Y * double_Dy3 + vector3D_AxisX.Z * double_Dz3,
                 vector3D_AxisY.X * double_Dx3 + vector3D_AxisY.Y * double_Dy3 + vector3D_AxisY.Z * double_Dz3
             );
@@ -524,7 +524,7 @@ namespace DiGi.Geometry.Spatial
                 return null;
             }
 
-            List<Point2D> point2Ds_Result = new List<Point2D>(point3Ds.Count);
+            List<Point2D> point2Ds_Result = new(point3Ds.Count);
             for (int int_I = 0; int_I < point3Ds.Count; int_I++)
             {
                 Point3D point3D_Temp = point3Ds[int_I];
@@ -646,7 +646,7 @@ namespace DiGi.Geometry.Spatial
                 return null;
             }
 
-            List<Point3D> point3Ds_Result = new List<Point3D>(point2Ds.Count);
+            List<Point3D> point3Ds_Result = new(point2Ds.Count);
             for (int int_I = 0; int_I < point2Ds.Count; int_I++)
             {
                 Point2D point2D_Temp = point2Ds[int_I];

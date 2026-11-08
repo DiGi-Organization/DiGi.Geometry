@@ -9,14 +9,14 @@ namespace DiGi.Geometry.Planar.Classes
     /// </summary>
     public class PolygonalFace2DInternalPointSolver : Core.Classes.InternalPointSolver<IPolygonalFace2D, Point2D>
     {
-        private IPolygonalFace2D? polygonalFace2D = null;
+        private IPolygonalFace2D? polygonalFace2D;
 
         private Tuple<bool, List<IPolygonal2D>?> edges = new(false, null);
         private Tuple<bool, List<Point2D>?> points = new(false, null);
         private Tuple<bool, List<Triangle2D>?> triangles = new(false, null);
 
-        private int i = 0;
-        private int j = 0;
+        private int i;
+        private int j;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PolygonalFace2DInternalPointSolver"/> class.

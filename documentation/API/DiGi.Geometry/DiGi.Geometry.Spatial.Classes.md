@@ -1261,7 +1261,7 @@ Not thread-safe: instances keep an internal scratch buffer and are intended for 
 within one boolean operation.
 
 ```csharp
-internal class BVHNodePointRelationSolver : DiGi.Core.Interfaces.IOneToOneSolver<DiGi.Geometry.Spatial.Classes.Point3D, DiGi.Geometry.Core.Enums.PointRelation>, DiGi.Core.Interfaces.ISolver, DiGi.Core.Interfaces.IEvaluator
+internal sealed class BVHNodePointRelationSolver : DiGi.Core.Interfaces.IOneToOneSolver<DiGi.Geometry.Spatial.Classes.Point3D, DiGi.Geometry.Core.Enums.PointRelation>, DiGi.Core.Interfaces.ISolver, DiGi.Core.Interfaces.IEvaluator
 ```
 
 Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') → BVHNodePointRelationSolver

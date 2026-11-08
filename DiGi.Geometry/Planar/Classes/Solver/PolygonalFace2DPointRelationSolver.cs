@@ -37,10 +37,10 @@ namespace DiGi.Geometry.Planar.Classes
         private readonly int[][] bins = [];
         private readonly double bin_Height = 1.0;
 
-        private readonly int ringCount = 0;
+        private readonly int ringCount;
         private readonly bool[] parity_Scratch = [];
 
-        private Point2D? point2D_Input = null;
+        private Point2D? point2D_Input;
         private PointRelation output = PointRelation.Undefined;
 
         /// <summary>

@@ -2,7 +2,7 @@
 
 namespace DiGi.Geometry.Planar.Classes
 {
-    internal class ConvexHullComparer : IComparer<Point2D>
+    internal sealed class ConvexHullComparer : IComparer<Point2D>
     {
         /// <summary>
         /// Compares two points for the purpose of calculating a convex hull.

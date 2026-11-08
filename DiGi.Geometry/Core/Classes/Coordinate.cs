@@ -1,6 +1,7 @@
 using DiGi.Core.Classes;
 using DiGi.Geometry.Core.Interfaces;
 using DiGi.Math.Classes;
+using System.Globalization;
 using System;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
@@ -476,7 +477,7 @@ namespace DiGi.Geometry.Core.Classes
                 return string.Empty;
             }
 
-            return string.Format("[{0}]", string.Join(";", values_Local));
+            return string.Format(CultureInfo.CurrentCulture, "[{0}]", string.Join(";", values_Local));
         }
     }
 }

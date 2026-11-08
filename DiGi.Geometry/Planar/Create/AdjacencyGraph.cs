@@ -44,16 +44,14 @@ namespace DiGi.Geometry.Planar
                     }
 
                     point2D_1.Round(tolerance);
-                    if (!point2Ds.Contains(point2D_1))
+                    if (point2Ds.Add(point2D_1))
                     {
-                        point2Ds.Add(point2D_1);
                         result.AddVertex(point2D_1);
                     }
 
                     point2D_2.Round(tolerance);
-                    if (!point2Ds.Contains(point2D_2))
+                    if (point2Ds.Add(point2D_2))
                     {
-                        point2Ds.Add(point2D_2);
                         result.AddVertex(point2D_2);
                     }
 

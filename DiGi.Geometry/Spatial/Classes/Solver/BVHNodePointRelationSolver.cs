@@ -21,7 +21,7 @@ namespace DiGi.Geometry.Spatial.Classes
     /// within one boolean operation.
     /// </para>
     /// </summary>
-    internal class BVHNodePointRelationSolver : IOneToOneSolver<Point3D, PointRelation>
+    internal sealed class BVHNodePointRelationSolver : IOneToOneSolver<Point3D, PointRelation>
     {
         // Non-axis-aligned unit ray directions used for parity ray casting. Components are irrational-like to
         // minimize the chance of hitting edges or vertices of axis-aligned geometry; subsequent directions are
@@ -44,7 +44,7 @@ namespace DiGi.Geometry.Spatial.Classes
         private readonly double rayLength;
         private readonly List<IPolygonalFace3D> polygonalFace3Ds_Scratch = [];
 
-        private Point3D? point3D_Input = null;
+        private Point3D? point3D_Input;
         private PointRelation output = PointRelation.Undefined;
 
         /// <summary>
