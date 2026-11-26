@@ -11,10 +11,10 @@ namespace DiGi.Geometry.Planar
     {
         /// <summary>
         /// Computes the geometric union of a collection of 2D polygonal faces.
-        /// <para>When NetTopologySuite throws a <c>TopologyException</c> during the union, the operation is retried with snap-rounding at a grid size given by <paramref name="tolerance"/> (vertices move by at most the grid size); <c>null</c> is returned only when that fallback fails as well. Any other exception propagates to the caller.</para>
+        /// <para>The union is computed with NetTopologySuite's <c>OverlayNGRobust</c>, which falls back from floating point through snapping to snap-rounding by itself; when it still throws a <c>TopologyException</c>, the operation is retried with snap-rounding at a grid size given by <paramref name="tolerance"/> (vertices move by at most the grid size). <c>null</c> is returned only when that fallback fails as well. Any other exception propagates to the caller.</para>
         /// </summary>
         /// <param name="polygonalFace2Ds">The collection of polygonal faces to be unioned.</param>
-        /// <param name="tolerance">The snap-rounding grid size applied when the default full-precision union fails with a <c>TopologyException</c>.</param>
+        /// <param name="tolerance">The snap-rounding grid size applied when the <c>OverlayNGRobust</c> union fails with a <c>TopologyException</c>.</param>
         /// <returns>A list containing the resulting unioned polygonal faces, or <c>null</c> if the input is null or no result could be produced.</returns>
         public static List<PolygonalFace2D>? Union(this IEnumerable<IPolygonalFace2D>? polygonalFace2Ds, double tolerance = DiGi.Core.Constants.Tolerance.Distance)
         {
@@ -84,10 +84,10 @@ namespace DiGi.Geometry.Planar
 
         /// <summary>
         /// Calculates the geometric union of a collection of polygons.
-        /// <para>When <c>UnaryUnionOp</c> throws a <c>TopologyException</c>, the union is retried with snap-rounding (<c>OverlayNG</c> at a fixed precision derived from <paramref name="tolerance"/>, moving vertices by at most the grid size); <c>null</c> is returned only when that fallback fails as well. Any other exception propagates to the caller.</para>
+        /// <para>The union is computed with <c>OverlayNGRobust</c> (floating point, then snapping, then snap-rounding at a precision it chooses), which never reaches the classic <c>OverlayOp</c> and its <c>ArgumentException</c> on a duplicate collapsed edge (DiGi-Organization/DiGi.Geometry#12). When it throws a <c>TopologyException</c>, the union is retried with snap-rounding (<c>OverlayNG</c> at a fixed precision derived from <paramref name="tolerance"/>, moving vertices by at most the grid size); <c>null</c> is returned only when that fallback fails as well. Any other exception propagates to the caller.</para>
         /// </summary>
         /// <param name="polygons">The collection of <see cref="Polygon"/> objects to unify.</param>
-        /// <param name="tolerance">The snap-rounding grid size applied when the default full-precision union fails with a <c>TopologyException</c>.</param>
+        /// <param name="tolerance">The snap-rounding grid size applied when the <c>OverlayNGRobust</c> union fails with a <c>TopologyException</c>.</param>
         /// <returns>A list of <see cref="Polygon"/> objects representing the resulting union, or <c>null</c> if the input is null or the union could not be computed.</returns>
         public static List<Polygon>? Union(this IEnumerable<Polygon>? polygons, double tolerance = DiGi.Core.Constants.Tolerance.Distance)
         {
@@ -158,12 +158,17 @@ namespace DiGi.Geometry.Planar
             NetTopologySuite.Geometries.Geometry? geometry;
             try
             {
-                geometry = NetTopologySuite.Operation.Union.UnaryUnionOp.Union(validPolygons);
+                // OverlayNGRobust never reaches the classic OverlayOp, whose EdgeList throws an ArgumentException
+                // ("An item with the same key has already been added") on a collapsed edge whose endpoints differ by
+                // a few ulps (DiGi-Organization/DiGi.Geometry#12); it falls back from floating point through snapping
+                // to snap-rounding at a precision of its own choosing.
+                geometry = NetTopologySuite.Operation.OverlayNG.OverlayNGRobust.Union(validPolygons);
             }
             catch (TopologyException)
             {
-                // Snap-rounding fallback: a fixed-precision OverlayNG union retries the operation on a
-                // grid of size tolerance (vertices move by at most the grid size), which resolves the robustness error.
+                // Snap-rounding fallback at the caller's tolerance: OverlayNGRobust still fails on some valid input
+                // ("Ring edge missing" on the DiGi-Organization/DiGi.Geometry#8 fixture), which a fixed-precision
+                // OverlayNG union on a grid of size tolerance (vertices move by at most the grid size) resolves.
                 try
                 {
                     geometry = NetTopologySuite.Operation.OverlayNG.UnaryUnionNG.Union(validPolygons, new PrecisionModel(1.0 / tolerance));
@@ -211,11 +216,11 @@ namespace DiGi.Geometry.Planar
 
         /// <summary>
         /// Calculates the union of a collection of polygonal geometries.
-        /// <para>When NetTopologySuite throws a <c>TopologyException</c> during the union, the operation is retried with snap-rounding at a grid size given by <paramref name="tolerance"/> (vertices move by at most the grid size); <c>null</c> is returned only when that fallback fails as well. Any other exception propagates to the caller.</para>
+        /// <para>The union is computed with NetTopologySuite's <c>OverlayNGRobust</c>, which falls back from floating point through snapping to snap-rounding by itself; when it still throws a <c>TopologyException</c>, the operation is retried with snap-rounding at a grid size given by <paramref name="tolerance"/> (vertices move by at most the grid size). <c>null</c> is returned only when that fallback fails as well. Any other exception propagates to the caller.</para>
         /// </summary>
         /// <typeparam name="TPolygonal2D">The type of polygonal geometry, which must implement <see cref="IPolygonal2D"/>.</typeparam>
         /// <param name="polygonal2Ds">A collection of polygonal geometries to be united.</param>
-        /// <param name="tolerance">The snap-rounding grid size applied when the default full-precision union fails with a <c>TopologyException</c>.</param>
+        /// <param name="tolerance">The snap-rounding grid size applied when the <c>OverlayNGRobust</c> union fails with a <c>TopologyException</c>.</param>
         /// <returns>A list of <see cref="Polygon2D"/> objects representing the unioned result, or <see langword="null"/> if the input collection is null or the union could not be computed.</returns>
         public static List<Polygon2D>? Union<TPolygonal2D>(this IEnumerable<TPolygonal2D>? polygonal2Ds, double tolerance = DiGi.Core.Constants.Tolerance.Distance) where TPolygonal2D : IPolygonal2D
         {
