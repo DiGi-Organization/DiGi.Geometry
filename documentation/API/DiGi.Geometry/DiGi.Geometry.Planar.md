@@ -9567,7 +9567,7 @@ The computation is delegated to [UnionResult2D\(this IPolygonalFace2D, IPolygona
 
 Computes the geometric union of a collection of 2D polygonal faces\.
 
-When NetTopologySuite throws a `TopologyException` during the union, the operation is retried with snap-rounding at a grid size given by [tolerance](DiGi.Geometry.Planar.md#DiGi.Geometry.Planar.Query.Union(thisSystem.Collections.Generic.IEnumerable_DiGi.Geometry.Planar.Interfaces.IPolygonalFace2D_,double).tolerance 'DiGi\.Geometry\.Planar\.Query\.Union\(this System\.Collections\.Generic\.IEnumerable\<DiGi\.Geometry\.Planar\.Interfaces\.IPolygonalFace2D\>, double\)\.tolerance') (vertices move by at most the grid size); `null` is returned only when that fallback fails as well. Any other exception propagates to the caller.
+The union is computed with NetTopologySuite's `OverlayNGRobust`, which falls back from floating point through snapping to snap-rounding by itself; when it still throws a `TopologyException`, the operation is retried with snap-rounding at a grid size given by [tolerance](DiGi.Geometry.Planar.md#DiGi.Geometry.Planar.Query.Union(thisSystem.Collections.Generic.IEnumerable_DiGi.Geometry.Planar.Interfaces.IPolygonalFace2D_,double).tolerance 'DiGi\.Geometry\.Planar\.Query\.Union\(this System\.Collections\.Generic\.IEnumerable\<DiGi\.Geometry\.Planar\.Interfaces\.IPolygonalFace2D\>, double\)\.tolerance') (vertices move by at most the grid size). `null` is returned only when that fallback fails as well. Any other exception propagates to the caller.
 
 ```csharp
 public static System.Collections.Generic.List<DiGi.Geometry.Planar.Classes.PolygonalFace2D>? Union(this System.Collections.Generic.IEnumerable<DiGi.Geometry.Planar.Interfaces.IPolygonalFace2D>? polygonalFace2Ds, double tolerance=1E-06);
@@ -9584,7 +9584,7 @@ The collection of polygonal faces to be unioned\.
 
 `tolerance` [System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')
 
-The snap\-rounding grid size applied when the default full\-precision union fails with a `TopologyException`\.
+The snap\-rounding grid size applied when the `OverlayNGRobust` union fails with a `TopologyException`\.
 
 #### Returns
 [System\.Collections\.Generic\.List&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')[PolygonalFace2D](DiGi.Geometry.Planar.Classes.md#DiGi.Geometry.Planar.Classes.PolygonalFace2D 'DiGi\.Geometry\.Planar\.Classes\.PolygonalFace2D')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')  
@@ -9596,7 +9596,7 @@ A list containing the resulting unioned polygonal faces, or `null` if the input 
 
 Calculates the geometric union of a collection of polygons\.
 
-When `UnaryUnionOp` throws a `TopologyException`, the union is retried with snap-rounding (`OverlayNG` at a fixed precision derived from [tolerance](DiGi.Geometry.Planar.md#DiGi.Geometry.Planar.Query.Union(thisSystem.Collections.Generic.IEnumerable_Polygon_,double).tolerance 'DiGi\.Geometry\.Planar\.Query\.Union\(this System\.Collections\.Generic\.IEnumerable\<Polygon\>, double\)\.tolerance'), moving vertices by at most the grid size); `null` is returned only when that fallback fails as well. Any other exception propagates to the caller.
+The union is computed with `OverlayNGRobust` (floating point, then snapping, then snap-rounding at a precision it chooses), which never reaches the classic `OverlayOp` and its `ArgumentException` on a duplicate collapsed edge (DiGi-Organization/DiGi.Geometry#12). When it throws a `TopologyException`, the union is retried with snap-rounding (`OverlayNG` at a fixed precision derived from [tolerance](DiGi.Geometry.Planar.md#DiGi.Geometry.Planar.Query.Union(thisSystem.Collections.Generic.IEnumerable_Polygon_,double).tolerance 'DiGi\.Geometry\.Planar\.Query\.Union\(this System\.Collections\.Generic\.IEnumerable\<Polygon\>, double\)\.tolerance'), moving vertices by at most the grid size); `null` is returned only when that fallback fails as well. Any other exception propagates to the caller.
 
 ```csharp
 public static System.Collections.Generic.List<Polygon>? Union(this System.Collections.Generic.IEnumerable<Polygon>? polygons, double tolerance=1E-06);
@@ -9613,7 +9613,7 @@ The collection of [NetTopologySuite\.Geometries\.Polygon](https://learn.microsof
 
 `tolerance` [System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')
 
-The snap\-rounding grid size applied when the default full\-precision union fails with a `TopologyException`\.
+The snap\-rounding grid size applied when the `OverlayNGRobust` union fails with a `TopologyException`\.
 
 #### Returns
 [System\.Collections\.Generic\.List&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')[NetTopologySuite\.Geometries\.Polygon](https://learn.microsoft.com/en-us/dotnet/api/nettopologysuite.geometries.polygon 'NetTopologySuite\.Geometries\.Polygon')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')  
@@ -9625,7 +9625,7 @@ A list of [NetTopologySuite\.Geometries\.Polygon](https://learn.microsoft.com/en
 
 Calculates the union of a collection of polygonal geometries\.
 
-When NetTopologySuite throws a `TopologyException` during the union, the operation is retried with snap-rounding at a grid size given by [tolerance](DiGi.Geometry.Planar.md#DiGi.Geometry.Planar.Query.Union_TPolygonal2D_(thisSystem.Collections.Generic.IEnumerable_TPolygonal2D_,double).tolerance 'DiGi\.Geometry\.Planar\.Query\.Union\<TPolygonal2D\>\(this System\.Collections\.Generic\.IEnumerable\<TPolygonal2D\>, double\)\.tolerance') (vertices move by at most the grid size); `null` is returned only when that fallback fails as well. Any other exception propagates to the caller.
+The union is computed with NetTopologySuite's `OverlayNGRobust`, which falls back from floating point through snapping to snap-rounding by itself; when it still throws a `TopologyException`, the operation is retried with snap-rounding at a grid size given by [tolerance](DiGi.Geometry.Planar.md#DiGi.Geometry.Planar.Query.Union_TPolygonal2D_(thisSystem.Collections.Generic.IEnumerable_TPolygonal2D_,double).tolerance 'DiGi\.Geometry\.Planar\.Query\.Union\<TPolygonal2D\>\(this System\.Collections\.Generic\.IEnumerable\<TPolygonal2D\>, double\)\.tolerance') (vertices move by at most the grid size). `null` is returned only when that fallback fails as well. Any other exception propagates to the caller.
 
 ```csharp
 public static System.Collections.Generic.List<DiGi.Geometry.Planar.Classes.Polygon2D>? Union<TPolygonal2D>(this System.Collections.Generic.IEnumerable<TPolygonal2D>? polygonal2Ds, double tolerance=1E-06)
@@ -9650,7 +9650,7 @@ A collection of polygonal geometries to be united\.
 
 `tolerance` [System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')
 
-The snap\-rounding grid size applied when the default full\-precision union fails with a `TopologyException`\.
+The snap\-rounding grid size applied when the `OverlayNGRobust` union fails with a `TopologyException`\.
 
 #### Returns
 [System\.Collections\.Generic\.List&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')[Polygon2D](DiGi.Geometry.Planar.Classes.md#DiGi.Geometry.Planar.Classes.Polygon2D 'DiGi\.Geometry\.Planar\.Classes\.Polygon2D')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')  
